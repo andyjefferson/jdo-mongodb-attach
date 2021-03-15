@@ -16,6 +16,7 @@ public class SimpleTest
         NucleusLogger.GENERAL.info(">> test START");
         PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("MyTest");
 
+        // Create and persist object, and detach it
         PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
         Person detachedP = null;
@@ -46,8 +47,10 @@ public class SimpleTest
         }
         pmf.getDataStoreCache().evictAll();
 
+        // Update detached object
         detachedP.setName("Second");
 
+        // Attached updated detached object
         pm = pmf.getPersistenceManager();
         tx = pm.currentTransaction();
         try
@@ -75,6 +78,7 @@ public class SimpleTest
         }
         pmf.getDataStoreCache().evictAll();
 
+        // Check the result making sure both caches are empty
         pm = pmf.getPersistenceManager();
         tx = pm.currentTransaction();
         try
