@@ -88,6 +88,7 @@ public class SimpleTest
             NucleusLogger.GENERAL.info(">> Retrieving Person");
             Person p = pm.getObjectById(Person.class, 1);
             NucleusLogger.GENERAL.info(">> Retrieved Person : name=" + p.getName());
+            assertEquals("Name is not updated correctly", "Second", p.getName());
 
             tx.commit();
         }
